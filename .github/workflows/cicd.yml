@@ -1,0 +1,33 @@
+name : CI/CD Pipeline
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Récupérer le code du projet
+        uses: actions/checkout@v4
+
+      - name: Installer Nodejs
+        uses: actions/setup-node@v4
+
+      - name: Installer les dépendances
+        run: npm install
+
+      - name: Exécuter les tests
+        run: npm run test
+
+      - name: Construire le projet
+        run: npm run build
+
+      - name: Déployer en production
+        if: github.ref == 'refs/heads/main'
+        run: |
+          echo "Déploiement en production..."
+          # Ajoutez vos commandes de déploiement ici

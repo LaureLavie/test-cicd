@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Document</title>
+</head>
+<body>
+  <form id="loginForm">
+    <label for="email">Email</label>
+    <input type="text" id="email">
+    <label for="password">Password</label>
+    <input type="password" id="password">
+    <button type="submit">Login</button>
+  </form>
+  <div id="message"></div>
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+    const response=await fetch('/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email, password })
+      });
+
+      const data = await response.json();
+      document.getElementById('message').innerText = data.message;
+      const msgDiv = document.getElementById('message')
+      msgDiv.innerText = data.message;
+      msgDiv.classList.add('visible'); // Révèle le message
+
+      // Si le statut est 400, ajoute la classe d'erreur
+      if (!response.ok) {
+        msgDiv.classList.add('error');
+      } else {
+        msgDiv.classList.remove('error');
+      }
+  });
+
+  </script>
+</body>
+</html>

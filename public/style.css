@@ -1,0 +1,129 @@
+/* Le parchemin de base + L'illustration de fond bien crasseuse */
+body {
+  /* Ajoute l'image de fond ici, en mode "cover" pour qu'elle prenne tout l'espace,
+     et fixe-la pour qu'elle ne bouge pas quand on scrolle.
+     La couleur #2b2118 sert de support. */
+  background:
+    url('fond_bouseux.jpg') no-repeat center center fixed,
+    #2b2118;
+  background-size: cover;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  font-family: 'Georgia', serif;
+  color: #d1c4a1; /* La couleur de la vieille peau de parchemin */
+
+  /* Un léger effet de fumée sombre pour que le formulaire ressorte bien */
+  text-shadow: 1px 1px 2px #000;
+}
+
+/* Le formulaire : un vieux registre de cuir */
+#loginForm {
+  background-color: #3e3025; /* Fond du formulaire plus opaque pour la lisibilité */
+  padding: 40px;
+  border: 4px solid #5c4a3a;
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.8), inset 0 0 50px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+}
+
+/* Les champs de saisie : comme gravés dans la roche */
+input {
+  background-color: #1a1510; /* Un noir de suie bien sale */
+  border: 6px double #4a3a2a; /* Une bordure épaisse, inégale et grossière */
+  color: #c5b358; /* Un jaune maladif, couleur de bile */
+  padding: 25px; /* De la place pour les doigts sales */
+  margin-bottom: 25px;
+  font-family: 'Courier New', Courier, monospace; /* Une police de scribe arthritique */
+  font-size: 1.5rem; /* Bien gros, pour les myopes */
+  font-weight: 900;
+  box-shadow: inset 5px 5px 10px #000; /* Un enfoncement qui fait peur */
+  transition: all 0.4s ease;
+  width: 100%;
+  box-sizing: border-box; /* Pour que ça déborde pas trop, par pitié */
+}
+
+/* Hover et Focus : le malaise visuel */
+input:hover, input:focus {
+  background-color: #2b1f15;
+  border: 6px dashed #ff4500; /* Une bordure en pointillés orange vif, une horreur */
+  box-shadow: 0 0 20px #ff0000; /* Un halo rouge qui semble saigner */
+  color: #fff;
+  outline: none;
+  transform: rotate(-1deg); /* Ça bouge et ça se met de travers, comme une gueule de travers */
+}
+
+/* On grossit aussi l'étiquette pour que même les illettrés comprennent */
+label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #8b7355;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+/* Le bouton : la forge ! */
+button {
+  background-color: #5c4a3a;
+  color: #d1c4a1;
+  border: 2px solid #b8860b;
+  padding: 15px;
+  cursor: pointer;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: background 0.4s ease, transform 0.2s;
+}
+
+/* L'effet de braise quand tu touches le bouton */
+button:hover {
+  background-color: #8b4513;
+  transform: scale(1.05);
+  box-shadow: 0 0 15px #d2691e;
+}
+
+/* L'overlay du pauvre (à ajouter en JS si tu veux un message d'erreur) */
+.overlay-gueux {
+  position: absolute;
+  background: rgba(43, 33, 24, 0.95);
+  border: 2px dashed #b8860b;
+  padding: 20px;
+  color: #ff4500; /* La couleur de la colère */
+  text-align: center;
+  font-weight: bold;
+}
+#message {
+  margin-top: 20px;
+  padding: 20px;
+  background: #251c15; /* Un fond sombre et crasseux */
+  border: 3px solid #5c4a3a;
+  border-image: linear-gradient(to bottom, #8b4513, #2b2118) 1; /* Un effet de bordure rouillée */
+  color: #d1c4a1;
+  text-align: center;
+  font-style: italic;
+  font-family: 'Georgia', serif;
+  font-size: 1.1rem;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.5);
+  
+  /* On le cache au départ pour le faire apparaître comme une révélation */
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+/* La classe pour déclencher l'apparition (à ajouter en JS) */
+#message.visible {
+  opacity: 1;
+}
+
+/* Variante si c'est un message d'erreur : couleur bile/sang */
+#message.error {
+  border-color: #8b0000;
+  color: #ff4500;
+  background: #331010;
+}
