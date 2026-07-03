@@ -9,7 +9,6 @@ on:
 jobs:
   test-and-deploy:
     runs-on: ubuntu-latest
-
     steps:
       - name: Récupérer le code du projet
         uses: actions/checkout@v4
@@ -20,18 +19,17 @@ jobs:
       - name: Installer les dépendances
         run: npm install
 
-      - name: Exécuter les tests
-        run: npm run test
+      # Étape CRUCIALE : Installer les navigateurs pour Playwright
+      - name: Installer les navigateurs Playwright
+        run: npx playwright install --with-deps
 
-      - name:  Déclencher le déploiement
+      - name: Exécuter les tests unitaires et intégration
+        run: npm run test:unit && npm run test:integration
+
+      - name: Exécuter les tests E2E
+        run: npm run test:e2e
+
+      # Déploiement uniquement si TOUS les tests passent
+      - name: Déclencher le déploiement
         if: success()
-        run:    curl -X POST "${{ secrets.RENDER_SECRET_HOOK_DEPLOY }}"
-
-      - name: Construire le projet
-        run: npm run build
-
-      - name: Déployer en production
-        if: github.ref == 'refs/heads/main'
-        run: |
-          echo "Déploiement en production..."
-          # Ajoutez vos commandes de déploiement ici
+        run: curl -X POST "${{ secrets.RENDER_SECRET_HOOK_DEPLOY }}"
