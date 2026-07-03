@@ -23,6 +23,10 @@ jobs:
       - name: Exécuter les tests
         run: npm run test
 
+      - name:  Déclencher le déploiement
+        if: success()
+        run:    curl -X POST "${{ secrets.RENDER_SECRET_HOOK_DEPLOY }}"
+
       - name: Construire le projet
         run: npm run build
 
